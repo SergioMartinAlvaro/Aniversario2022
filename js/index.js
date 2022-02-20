@@ -2,6 +2,7 @@
 const paths = ['.pathOne', '.handspath', '.pathThree'];
 let actualPath = 0;
 let discount = 1;
+let startingOpenDoors = 0;
 
 const setupLineDrawing = () => {
     let path = document.querySelector(extractPath());
@@ -83,9 +84,68 @@ startDrawingFirstPath = () => {
                 actualPath = 0;
                 setupLineDrawing();
                 clearInterval(drawInterval);
-            
         }
     }, 0.1 )
 
 }
-startDrawingFirstPath();
+// Ready para la animacion
+let isDefinedPlace = false;
+function startOpenDoors(elements) {
+    let leftElement = elements.left;
+    let rightElement = elements.right;
+    let totalPosition = (window.pageYOffset - startingOpenDoors);
+    rightElement.style.transform = `translateX(${totalPosition}px)`;
+    leftElement.style.transform = `translateX(${-totalPosition}px)`;
+    console.log(totalPosition)
+}
+
+function createObserver() {
+    var observer;
+  
+    var options = {
+      root: null,
+      rootMargin: "0px",
+      threshold: buildThresholdList()
+    };
+  
+    observer = new IntersectionObserver(handleIntersect, options);
+    let boxElement = document.querySelector('#last-window')
+    observer.observe(boxElement);
+  }
+
+  function buildThresholdList() {
+      let numSteps = 10;
+    var thresholds = [];
+  
+    for (var i=1.0; i<=numSteps; i++) {
+      var ratio = i/numSteps;
+      thresholds.push(ratio);
+    }
+  
+    thresholds.push(0);
+    return thresholds;
+  }
+
+  function handleIntersect(entries, observer) {
+      let leftElement = document.querySelector('.lastWindow-left')
+      let rightElement = document.querySelector('.lastWindow-right')
+      let prevRatio = 0.75;
+    entries.forEach(function(entry) {
+      if (entry.intersectionRatio > prevRatio) {
+        if(!isDefinedPlace) {
+            startingOpenDoors = window.pageYOffset;
+            isDefinedPlace = !isDefinedPlace;
+        }
+        startOpenDoors({left: leftElement, right: rightElement});
+      } else {
+
+      }
+  
+      prevRatio = entry.intersectionRatio;
+    });
+  }
+
+startDrawingFirstPath(), () => {
+
+};
+createObserver();

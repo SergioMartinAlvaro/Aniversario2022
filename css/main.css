@@ -112,18 +112,33 @@ p {
 }
 
 .bottom-arrow {
-    font-size: 12px;
-    font-family: Stamford;
+    font-size: 32px;
+    font-family: Adeline;
     border: 2px solid black;
     width: 124px;
     /* text-align: center; */
     text-align: center;
     margin: 0 auto;
     margin-top: 44px;
-    padding: 4px 4px;
+    padding: 0px 12px;
     border-radius: 2em;
     margin-bottom: 24px;
     cursor: pointer;
+}
+
+.lastWindow, .blankPage {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.lastWindow p {
+
+}
+
+.lastWindow-left, .lastWindow-right {
+    transition: .5s ease-in-out;
 }
 
 @keyframes hide {
@@ -151,6 +166,11 @@ p {
   }
 
   @font-face {
-    font-family: Stamford;
-    src: url('../assets/fonts/Stamford\ Bridge.ttf');
+    font-family: Hello;
+    src: url('../assets/fonts/josephsophia.ttf');
+  }
+
+  @font-face {
+    font-family: Adeline;
+    src: url('../assets/fonts/Adeline.ttf');
   }
